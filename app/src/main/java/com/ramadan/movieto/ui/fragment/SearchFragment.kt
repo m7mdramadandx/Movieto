@@ -7,7 +7,6 @@ import android.view.*
 import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +36,8 @@ class SearchFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewAdapter: RecyclerViewAdapter
     private lateinit var searchBar: MaterialSearchBar
-
+    private var searchView: SearchView? = null
+    private var queryTextListener: SearchView.OnQueryTextListener? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         recyclerViewAdapter = RecyclerViewAdapter()
@@ -94,28 +94,52 @@ class SearchFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.clear()
         inflater.inflate(R.menu.search_menu, menu)
-        val searchView =
-            MenuItemCompat.getActionView(menu.findItem(R.id.appSearchBar)) as SearchView
-//        val searchView =
-//            SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
-//        menu.findItem(R.id.appSearchBar).apply { actionView = searchView }
-        searchView.queryHint = "Movie name.."
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                searchMovie(query)
-                return false
-            }
+        val searchItem = menu.findItem(R.id.appSearchBar)
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = searchItem.actionView as SearchView
+        searchView?.let {
+            searchView?.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+            queryTextListener = object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String): Boolean {
+                    recyclerViewAdapter.notifyDataSetChanged()
+                    return true
+                }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                recyclerViewAdapter.notifyDataSetChanged()
-                return false
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    searchMovie(query)
+                    return true
+                }
             }
-        })
-
-        return super.onCreateOptionsMenu(menu, inflater)
+            searchView?.setOnQueryTextListener(queryTextListener)
+        }
+        super.onCreateOptionsMenu(menu, inflater)
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        menu.clear()
+//        inflater.inflate(R.menu.search_menu, menu)
+//        val searchView =
+//            MenuItemCompat.getActionView(menu.findItem(R.id.appSearchBar)) as SearchView
+////        val searchView =
+////            SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
+////        menu.findItem(R.id.appSearchBar).apply { actionView = searchView }
+//        searchView.queryHint = "Movie name.."
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                searchMovie(query)
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                recyclerViewAdapter.notifyDataSetChanged()
+//                return false
+//            }
+//        })
+//
+//        return super.onCreateOptionsMenu(menu, inflater)
+//    }
 
 //    override fun OnItemClickListener(position: Int, v: View?) {
 //        TODO("Not yet implemented")
