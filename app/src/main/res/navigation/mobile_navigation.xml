@@ -3,23 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/nav_top_rated">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.ramadan.movieto.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_top_rated"
+        android:name="com.ramadan.movieto.ui.fragment.TopRatedFragment"
+        tools:layout="@layout/recycler_view">
+        <action
+            android:id="@+id/action_nav_top_rated_to_nav_movie_details"
+            app:destination="@id/nav_movie_details"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/pop_enter"
+            app:popExitAnim="@anim/pop_exit">
+            <argument
+                android:name="movie"
+                android:defaultValue="@null"
+                app:argType="com.ramadan.movieto.data.model.Result"
+                app:nullable="true" />
+        </action>
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.ramadan.movieto.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/nav_now_playing"
+        android:name="com.ramadan.movieto.ui.fragment.NowPlayingFragment"
+        tools:layout="@layout/recycler_view">
+        <action
+            android:id="@+id/action_nav_now_playing_to_nav_movie_details"
+            app:destination="@id/nav_movie_details"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/pop_enter"
+            app:popExitAnim="@anim/pop_exit">
+            <argument
+                android:name="movie"
+                android:defaultValue="@null"
+                app:argType="com.ramadan.movieto.data.model.Result"
+                app:nullable="true" />
+        </action>
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.ramadan.movieto.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/nav_search"
+        android:name="com.ramadan.movieto.ui.fragment.SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_nav_search_to_nav_movie_details"
+            app:destination="@id/nav_movie_details"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/pop_enter"
+            app:popExitAnim="@anim/pop_exit">
+            <argument
+                android:name="movie"
+                android:defaultValue="@null"
+                app:argType="com.ramadan.movieto.data.model.Result"
+                app:nullable="true" />
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="com.ramadan.movieto.ui.fragment.FavoriteFragment"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_nav_favorite_to_nav_movie_details"
+            app:destination="@id/nav_movie_details"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/pop_enter"
+            app:popExitAnim="@anim/pop_exit">
+
+            <argument
+                android:name="movie"
+                android:defaultValue="@null"
+                app:argType="com.ramadan.movieto.data.model.Result"
+                app:nullable="true" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_movie_details"
+        android:name="com.ramadan.movieto.ui.fragment.MovieDetailsFragment"
+        tools:layout="@layout/movie_details">
+        <argument
+            android:name="movie"
+            android:defaultValue="@null"
+            app:argType="com.ramadan.movieto.data.model.Result"
+            app:nullable="true" />
+    </fragment>
 </navigation>

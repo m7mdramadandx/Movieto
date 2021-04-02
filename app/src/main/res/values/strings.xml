@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Movieto</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="top_rated">Top rated</string>
+    <string name="now_playing">Now playing</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="movie_details">movie_details</string>
+    <string name="options">options</string>
+    <string name="download">download</string>
+    <string name="share">share</string>
 </resources>
