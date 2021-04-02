@@ -21,13 +21,19 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-            <ImageView
-                android:id="@+id/coverImg"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_error_img" />
+                android:background="@drawable/bg_overlay">
+
+                <ImageView
+                    android:id="@+id/coverImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_error_img" />
+            </FrameLayout>
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
@@ -46,14 +52,46 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/contentView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingVertical="16dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:id="@+id/movieVoteAverage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/bg_rounded"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="2dp"
+                    android:text="5.8"
+                    android:textColor="@color/titleColor"
+                    app:drawableStartCompat="@drawable/ic_star" />
+
+                <ImageView
+                    android:id="@+id/addToFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_favorite_grey" />
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_rounded"
                     android:backgroundTint="@color/colorSecondary"
+                    android:gravity="center"
                     android:paddingHorizontal="12dp"
                     android:text="Overview"
                     android:textColor="#fff" />
@@ -76,8 +115,7 @@
                     android:id="@+id/movieDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="sssssssssssssssssssssssssss" />
+                    android:layout_margin="8dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,29 +123,34 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_rounded"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <TextView
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:id="@+id/movieReleaseDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rounded"
-                    android:backgroundTint="@color/colorSecondary"
-                    android:paddingHorizontal="12dp"
-                    android:text="Rate"
-                    android:textColor="#fff" />
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    app:drawableStartCompat="@drawable/ic_date" />
 
                 <TextView
-                    android:id="@+id/movieVoteAverage"
+                    android:id="@+id/movieOriginalLanguage"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    app:drawableStartCompat="@drawable/ic_language" />
+
+                <TextView
+                    android:id="@+id/movieVoteGenres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/movieVoteGenres"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

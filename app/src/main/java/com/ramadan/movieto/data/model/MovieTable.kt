@@ -7,7 +7,6 @@ import java.io.Serializable
 
 @Entity(tableName = "MOVIE")
 data class MovieTable(
-
     @PrimaryKey
     @ColumnInfo(name = "ID")
     val id: Int,
@@ -18,8 +17,9 @@ data class MovieTable(
     @ColumnInfo(name = "BACKDROP_PATH")
     val backdrop_path: String,
 
-    @ColumnInfo(name = "GENRE_IDS")
-    val genre_ids: List<Int>,
+//    @Ignore
+//    @ColumnInfo(name = "GENRE_IDS")
+//    val genre_ids: List<Int> = listOf(),
 
     @ColumnInfo(name = "ORIGINAL_LANGUAGE")
     val original_language: String,
@@ -49,7 +49,16 @@ data class MovieTable(
     val vote_average: Double,
 
     @ColumnInfo(name = "VOTE_COUNT")
-    val vote_count: Int
+    val vote_count: Int,
 
-) : Serializable
+    @ColumnInfo(name = "IS_FAVORITE")
+    var is_favorite: Boolean
+
+) : Serializable {
+    constructor() : this(
+        0, false, "", "",
+        "", "", 0.0, "", "", "",
+        false, 0.0, 0, false
+    )
+}
 

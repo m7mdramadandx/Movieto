@@ -7,7 +7,7 @@ import java.io.Serializable
 data class Movie(
     val dates: Dates,
     val page: Int,
-    val results: MutableList<Result>,
+    val results: MutableList<MovieTable>,
     val total_pages: Int,
     val total_results: Int
 ) : Serializable {

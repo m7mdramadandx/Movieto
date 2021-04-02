@@ -10,16 +10,10 @@ interface MovieDao {
     // Data Access Object Class for mapping SQL quires
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(noteTable: MovieTable)
+    suspend fun insert(movieTable: MovieTable)
 
     @Query("SELECT * FROM MOVIE ")
-    fun retrieveNotes(): LiveData<MutableList<MovieTable>>
-
-    @Query("SELECT * FROM MOVIE WHERE ID=:id")
-    fun getNote(id: Int): LiveData<MovieTable>
-
-    @Update
-    suspend fun update(noteTable: MovieTable)
+    fun retrieveMovies(): LiveData<MutableList<MovieTable>>
 
     @Query("DELETE FROM MOVIE")
     suspend fun deleteAll()

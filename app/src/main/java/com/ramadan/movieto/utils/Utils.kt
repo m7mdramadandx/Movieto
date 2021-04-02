@@ -3,13 +3,13 @@
 package com.ramadan.movieto.utils
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
-import com.ramadan.movieto.R
 
 
 class Utils(val context: Context) {}
@@ -55,6 +55,7 @@ fun View.snackBar(message: String) {
         message,
         Snackbar.LENGTH_LONG
     ).apply {
+        setTextColor(Color.WHITE)
         show()
     }
 }

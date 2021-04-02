@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ramadan.movieto.MainActivity
 import com.ramadan.movieto.R
 import com.ramadan.movieto.ui.adapter.RecyclerViewAdapter
+import com.ramadan.movieto.ui.viewmodel.MovieViewModel
 
 class FavoriteFragment : Fragment() {
+    private val viewModel by lazy { ViewModelProvider(this).get(MovieViewModel::class.java) }
     private lateinit var progress: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewAdapter: RecyclerViewAdapter
@@ -25,7 +30,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        observeData()
+        observeData()
     }
 
     override fun onCreateView(
@@ -33,8 +38,22 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_favorite, container, false)
+        val root = inflater.inflate(R.layout.recycler_view, container, false)
+        progress = root.findViewById(R.id.progress)
+        recyclerView = root.findViewById(R.id.global_recycler_view)
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
+        recyclerView.adapter = recyclerViewAdapter
+        progress.visibility = View.GONE
+    }
+
+    private fun observeData() {
+        viewModel.retrieveMovies(requireContext()).observe(this, {
+            it?.let(recyclerViewAdapter::setFavoriteDataList)
+        })
+    }
 }

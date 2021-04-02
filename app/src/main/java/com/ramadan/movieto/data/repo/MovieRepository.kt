@@ -13,25 +13,15 @@ class MovieRepository {
     companion object {
         private var movieDatabase: MovieDatabase? = null
 
-        fun insertNote(context: Context, note: MovieTable) {
+        fun insertMovie(context: Context, movie: MovieTable) {
             movieDatabase = MovieDatabase.getInstance(context)
             // Coroutines is used to perform asynchronous tasks
-            CoroutineScope(Dispatchers.IO).launch { movieDatabase!!.movieDao().insert(note) }
+            CoroutineScope(Dispatchers.IO).launch { movieDatabase!!.movieDao().insert(movie) }
         }
 
-        fun updateNote(context: Context, note: MovieTable) {
+        fun retrieveMovies(context: Context): LiveData<MutableList<MovieTable>> {
             movieDatabase = MovieDatabase.getInstance(context)
-            CoroutineScope(Dispatchers.IO).launch { movieDatabase!!.movieDao().update(note) }
-        }
-
-        fun retrieveNotes(context: Context): LiveData<MutableList<MovieTable>> {
-            movieDatabase = MovieDatabase.getInstance(context)
-            return movieDatabase!!.movieDao().retrieveNotes()
-        }
-
-        fun getNote(context: Context, ID: Int): LiveData<MovieTable> {
-            movieDatabase = MovieDatabase.getInstance(context)
-            return movieDatabase!!.movieDao().getNote(ID)
+            return movieDatabase!!.movieDao().retrieveMovies()
         }
 
         fun deleteAll(context: Context) {
@@ -39,9 +29,9 @@ class MovieRepository {
             CoroutineScope(Dispatchers.IO).launch { movieDatabase!!.movieDao().deleteAll() }
         }
 
-        fun deleteNote(context: Context, note: MovieTable) {
+        fun deleteMovie(context: Context, movie: MovieTable) {
             movieDatabase = MovieDatabase.getInstance(context)
-            CoroutineScope(Dispatchers.IO).launch { movieDatabase!!.movieDao().delete(note) }
+            CoroutineScope(Dispatchers.IO).launch { movieDatabase!!.movieDao().delete(movie) }
         }
     }
 

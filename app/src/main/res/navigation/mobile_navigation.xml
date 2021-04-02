@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/nav_movie_details"
         android:name="com.ramadan.movieto.ui.fragment.MovieDetailsFragment"
-        tools:layout="@layout/movie_details">
+        tools:layout="@layout/activity_movie_details">
         <argument
             android:name="movie"
             android:defaultValue="@null"
