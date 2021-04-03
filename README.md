@@ -7,7 +7,7 @@ an android application provides best movies
 
 ## Screenshots for the App
 
-<img src="screenshot/0.jpg" width=200> <img src="screenshot/1.png" width=200> <img src="screenshot/2.png" width=200>
+<img src="screenshot/0.jpeg" width=200> <img src="screenshot/1.png" width=200> <img src="screenshot/2.png" width=200>
 
 <img src="screenshot/3.png" width=200> <img src="screenshot/4.png" width=200> <img src="screenshot/5.png" width=200>
 
