@@ -2,11 +2,13 @@ package com.ramadan.movieto.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ramadan.movieto.R
 import com.ramadan.movieto.data.model.MovieTable
 import com.ramadan.movieto.ui.viewmodel.MovieViewModel
+import com.ramadan.movieto.utils.genresNamesList
 import com.ramadan.movieto.utils.snackBar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_details.*
@@ -15,6 +17,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private val viewModel by lazy { ViewModelProvider(this).get(MovieViewModel::class.java) }
     private var movieTable: MovieTable? = null
     private var isFavorite = false
+    private var genres = String()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,19 +26,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent.getSerializableExtra("movieObj")?.let { movieTable = it as MovieTable }
         loadData()
-        addToFavorite.setOnClickListener {
-            if (!isFavorite) {
-                isFavorite = !isFavorite
-                viewModel.addMovie(this, movieTable)
-                it.setBackgroundResource(R.drawable.ic_favorite)
-                it.snackBar("Added to favorite")
-            } else {
-                isFavorite = !isFavorite
-                movieTable?.let { it1 -> viewModel.removeMovie(this, it1) }
-                it.setBackgroundResource(R.drawable.ic_favorite_grey)
-                it.snackBar("Removed from favorite")
-            }
-        }
     }
 
 
@@ -62,7 +52,22 @@ class MovieDetailsActivity : AppCompatActivity() {
                 addToFavorite.setImageResource(R.drawable.ic_favorite)
                 isFavorite = it.is_favorite
             }
-//            movieVoteGenres.text = it.genre_ids.toString()
+            it.genre_ids.forEach { genres += genresNamesList.getValue(it) + " " }
+            movieVoteGenres.text = genres
+        }
+    }
+
+    fun addToFavorite(view: View) {
+        if (!isFavorite) {
+            isFavorite = !isFavorite
+            viewModel.addMovie(this, movieTable)
+            addToFavorite.setImageResource(R.drawable.ic_favorite)
+            view.snackBar("Added to favorite")
+        } else {
+            isFavorite = !isFavorite
+            movieTable?.let { it1 -> viewModel.removeMovie(this, it1) }
+            addToFavorite.setImageResource(R.drawable.ic_favorite_grey)
+            view.snackBar("Removed from favorite")
         }
     }
 }

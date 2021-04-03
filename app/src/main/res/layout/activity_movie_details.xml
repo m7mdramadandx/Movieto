@@ -53,7 +53,7 @@
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
+        android:padding="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -88,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:background="@android:color/transparent"
+                    android:onClick="addToFavorite"
                     android:src="@drawable/ic_favorite_grey" />
 
 
@@ -96,7 +97,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/bg_rounded"
                 android:orientation="vertical">
 
@@ -121,7 +122,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_rounded"
                 android:orientation="vertical"
                 android:padding="8dp">

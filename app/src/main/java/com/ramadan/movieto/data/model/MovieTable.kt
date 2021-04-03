@@ -3,6 +3,7 @@ package com.ramadan.movieto.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import java.io.Serializable
 
 @Entity(tableName = "MOVIE")
@@ -17,9 +18,9 @@ data class MovieTable(
     @ColumnInfo(name = "BACKDROP_PATH")
     val backdrop_path: String,
 
-//    @Ignore
-//    @ColumnInfo(name = "GENRE_IDS")
-//    val genre_ids: List<Int> = listOf(),
+    @ColumnInfo(name = "GENRE_IDS")
+//    @TypeConverters(GenresConverter::class)
+    var genre_ids: List<Int>,
 
     @ColumnInfo(name = "ORIGINAL_LANGUAGE")
     val original_language: String,
@@ -56,7 +57,7 @@ data class MovieTable(
 
 ) : Serializable {
     constructor() : this(
-        0, false, "", "",
+        0, false, "", listOf(), "",
         "", "", 0.0, "", "", "",
         false, 0.0, 0, false
     )
